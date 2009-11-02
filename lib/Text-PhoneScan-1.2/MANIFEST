@@ -1,0 +1,17 @@
+Changes
+MANIFEST
+Makefile.PL
+PhoneScan.pm
+t/1.t
+t/2.t
+t/test.xls
+PhoneScan/FixInt.pm
+PhoneScan/France.pm
+PhoneScan/International.pm
+PhoneScan/MagicWord.pm
+PhoneScan/Marked.pm
+PhoneScan/NoISBN.pm
+PhoneScan/Oftel.pm
+PhoneScan/UK.pm
+PhoneScan/UKLocal.pm
+PhoneScan/US.pm

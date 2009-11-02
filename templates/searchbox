@@ -1,0 +1,13 @@
+<div class="search">
+<form action="[% base | remove( '/$' ) %]/mail/search/">
+<p>
+<input name="terms" value="[% self.req.parameters.terms %]" /> 
+<input type="submit" value="Search!" />
+</p>
+</form>
+[% IF hint %]
+<div class="searchhints"> Did you know... [% hint %]</div>
+[% END %]
+[% INCLUDE pager %]
+</div>
+<hr/>

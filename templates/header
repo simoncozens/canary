@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+[% PROCESS macros %]
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="top">
+    <title>[% (title || "Buscador") | html %]</title>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" title="myStyle" href="/chrome/canary.css" type="text/css" />
+</head>
+<body>
+<div class="column span-6 interesting">
+    <a href="/"><p class="logo"><img src="/chrome/canary.png" id="logo"/>Canary</p></a>
+    <h2> Interesting things </h2>
+    <ul>
+    [% FOR i = self.interesting; %]
+    <li> [% i.text; %] in mail [% summary_link(i.mail) %] </li>
+    [% END %]
+    </ul>
+
+</div>
+<div class="column span-18">
+<div class="content">

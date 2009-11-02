@@ -1,0 +1,13 @@
+[% INCLUDE header %]
+[% PROCESS macros %]
+
+<h1>Search results</h1>
+[% INCLUDE searchbox %]
+
+[% message %]
+
+[% FOR mail = mails %]
+[% search_result(mail, request.query.terms) %] <br />
+
+[% END %]
+[% INCLUDE footer %]
