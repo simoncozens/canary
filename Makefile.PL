@@ -26,6 +26,7 @@ requires	"Class::DBI::Pager" => 0;
 requires	"Template" => 0;
 requires	"Email::Store" => 0;
 requires	"Email::Store::HTML" => 0;
+requires	"Email::Store::Thread" => 0;
 requires	"Email::Store::Summary" => 0;
 requires	"Text::Decorator" => 0;
 requires	"Text::Autoformat" => 0;
