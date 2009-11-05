@@ -34,7 +34,7 @@ sub handler {
     my ($self, $req) = @_;
     $self->{req} = $req;
     my (undef, $noun, $verb, @args) = split /\//,  $req->path;
-    if (!$noun) { $noun = "mail"; $verb = "recent" }
+    if (!$noun) { $noun = "mail"; $verb = "recent" } # XXX shouldn't be here
     # Convert "noun" to model prefix
     $noun =~ s/_(\w)/\U\1/g; my $class = $self->{model_prefix}."::".ucfirst($noun);
     # Does this class even exist?
