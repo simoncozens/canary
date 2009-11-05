@@ -1,6 +1,7 @@
 package MicroMaypole;
 use Template;
-use HTTP::Engine;
+use Plack::Request;
+use Plack::Response;
 
 sub app {
     my ($self, %args) = @_;
@@ -13,15 +14,12 @@ sub app {
         COMPILE_EXT => ".ttc"
     });
 
-    my $engine = HTTP::Engine->new( interface => { module => 'PSGI', 
-        request_handler => sub {
-            my $req = shift;
-            my $m = $self->new(%args);
-            $m->{template_engine} = $t;
-            $m->handler($req);
-        }
-    });
-    sub { $engine->run(@_) };
+    sub {
+        my $req = Plack::Request->new(shift);
+        my $m = $self->new(%args);
+        $m->{template_engine} = $t;
+        $m->handler($req)->finalize;
+    }
 }
 
 sub new { my $self = shift; return bless {@_} , $self }
@@ -52,7 +50,8 @@ sub handler {
 sub respond {
     my ($self, $template, @args) = @_;
     my $out;
-    my $res = HTTP::Engine::Response->new();
+    my $res = Plack::Response->new(200);
+    $res->content_type("text/html");
     $self->{template_engine}->process($template, {
         self => $self,
         @args,
