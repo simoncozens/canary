@@ -4,7 +4,6 @@ Suggest search improvements by giving ID as well as name
 "Things I need help with"
 "Organic group" finding
 Functional interface when trying to find stuff
-    Make entities searchable, add "has:..." to index (i.e. "has:address")
 Recognisers (From M::M)
     Physical address
     Keywords
