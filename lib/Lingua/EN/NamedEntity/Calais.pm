@@ -9,8 +9,12 @@ sub extract_entities {
     my $markup;
     my $attempts = 0; 
     until ($markup) { 
+        eval { local $SIG{ALRM} = sub { die "alarm\n" };
+        alarm 10;
         $markup = $calais->enlighten($data, contentType => 'text/raw',
     outputFormat=>"Application/JSON");
+        alarm 0;
+        };
         if ($markup =~ /<Error/ and $attempts++ < 10) { 
         return;
         sleep 5; warn "Failed, retrying"; redo 
