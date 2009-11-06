@@ -4,7 +4,7 @@ Email::Store->setup if !-d "emailstore-index";
 use File::Find;
 use File::Slurp;
 my $count;
-find({wanted => \&wanted, no_chdir => 1}, "maildir/.read-mail-2009-10/") ;
+find({wanted => \&wanted, no_chdir => 1}, shift @ARGV);
 exit;
 sub wanted { 
     my $file = $File::Find::name;
