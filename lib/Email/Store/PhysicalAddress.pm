@@ -73,6 +73,22 @@ sub narrow {
      $location->{Point}{coordinates}[0], $location->{AddressDetails}{Accuracy});
 }
 
+sub spec_kinosearch_fields_order { 80 }
+sub spec_kinosearch_fields {
+    my ($self, $indexer) = @_;
+    $indexer->spec_field(name => "address");
+}
+
+sub kinosearch_index_order { 80 }
+
+sub kinosearch_index {
+    my ($self, $mail, $doc) = @_;
+    my @addresses = map {$_->address} $mail->physical_addresses;
+    return unless @addresses;
+    $doc->set_value(address => join ' ', @addresses);
+    $doc->set_value(has => $doc->get_value("has")." address");
+}
+
 
 __DATA__
 CREATE TABLE IF NOT EXISTS physical_address (
