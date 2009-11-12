@@ -72,3 +72,25 @@
 [% END %]
 </table>
 [% END %]
+[% MACRO wikify(this) BLOCK; %]
+<div class="wiki">
+<div id="wikihtml" onclick="toTA(this);">
+[% this.wikihtml %]
+</div>
+<form id="wikiform" method="post"
+action="/[%self.req.noun%]/[%self.req.verb%]/[%this.id%]/setwiki">
+<textarea name="wiki" id="wikita">
+</textarea>
+<br/>
+<input type="submit" name="Change" value="Change">
+</form>
+</div>
+<script>
+$("#wikiform").hide();
+function toTA(e) {
+    $(e).hide();
+    $("textarea#wikita").load("/[%self.req.noun%]/wiki/[%this.id%]?nonce=[%0+self%]");
+    $("#wikiform").show();
+}
+</script>
+[% END %]

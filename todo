@@ -8,11 +8,13 @@ Recognisers (From M::M)
     Physical address
     Keywords
     Attachment types
-Wikify everything
+Wikify everything (partially done)
 Sticky notes
 Votes - interface to
 Gumshoe - report on people's URLs, keywords, addresses etc.
 Entity correlators:
+    *BUG* Something is wrong with the correlator we already have
+        may be fixed by...
     Equate Calias "named entities" and E::S "entities"
     Exact
     Similar domain name 

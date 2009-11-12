@@ -6,7 +6,5 @@
 <ul>
 [% FOR i = entity.mails; "<li>";summary_link(i); END %]
 </ul>
-<div class="wiki">
-[% entity.wikihtml %]
-</div>
+[% wikify(entity) %]
 [% INCLUDE footer %]

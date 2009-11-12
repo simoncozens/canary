@@ -35,7 +35,10 @@ sub handler {
     $self->{req} = $req;
     my (undef, $noun, $verb, @args) = split /\//,  $req->path;
     if (!$noun) { $noun = "mail"; $verb = "recent" } # XXX shouldn't be here
+    $self->{req}{noun} = $noun;
+    $self->{req}{verb} = $verb;
     # Convert "noun" to model prefix
+    $req->{template} = "$noun/$verb";
     $noun =~ s/_(\w)/\U\1/g; my $class = $self->{model_prefix}."::".ucfirst($noun);
     # Does this class even exist?
     if (!$class->isa("UNIVERSAL")) { return $self->do404(); }
@@ -43,13 +46,13 @@ sub handler {
         warn "Can't call method $verb on class $class" ;
         return $self->do404();
     }
-    $req->{template} ||= "$verb/$noun";
     $class->$verb($self, @args);
 }
 
 sub respond {
     my ($self, $template, @args) = @_;
     my $out;
+    $template ||= $self->{req}->{template};
     my $res = Plack::Response->new(200);
     $res->content_type("text/html");
     $self->{template_engine}->process($template, {

@@ -3,8 +3,8 @@ use Module::Pluggable require => 1, search_path => ["Buscador"];
 __PACKAGE__->plugins;
 package Canary;
 use base 'MicroMaypole';
+use Canary;
 use Canary::Mail;
-use Canary::NamedEntity;
 use Email::Store qw/dbi:SQLite:email.db/;
 use Plack::Builder;
 
