@@ -28,6 +28,12 @@ use Text::MediawikiFormat 'wikiformat';
 
 sub wikihtml { wikiformat shift->wikitext }
 
+my %interesting = map {$_=>1} qw(city company country facility faxnumber
+holiday industryterm medicalcondition medicaltreatment movie musicalbum
+musicgroup naturalfeature organization operatingsystem person
+phonenumber product programminglanguage provinceorstate publishedmedium
+radioprogram radiostation sportsevent sportsleague technology tvshow );
+
 sub on_store_order { 80 }
 
 sub on_store {
@@ -38,10 +44,9 @@ sub on_store {
 
     foreach my $e (Lingua::EN::NamedEntity::Calais::extract_entities($body)) 
     { 
-
         my $class = $e->{class};
         my $score = $e->{scores} || 0;
-        next if $class eq "emailaddress";
+        next unless $interesting{$class};
         my $ref = Email::Store::NamedEntity->find_or_create({
             thing => $e->{entity},
             description => $class,
@@ -54,7 +59,7 @@ sub on_store {
              if ( $result and $result->text() ) {
                 my $text = $result->text;
                 1 while $text =~ s/\{\{.*?\}\}//sm;
-                1 while $text =~ s/<ref>.*?/<\/ref>/sm;
+                1 while $text =~ s/<ref>.*?<\/ref>//sm;
                  $ref->wikitext($text);
              } else { $ref->wikitext("No information found about this") }
             $ref->update;
@@ -63,20 +68,28 @@ sub on_store {
     }
 }
 
+sub spec_kinosearch_fields_order { 80 }
+
+sub spec_kinosearch_fields {
+    my ($self, $indexer) = @_;
+    $indexer->spec_field(name => $_) for keys %interesting;
+}
+
 sub kinosearch_index_order { 80 }
 
 sub kinosearch_index {
     my ($self, $mail, $doc) = @_;
     
-
+    my %topics;
     foreach my $e ($mail->named_entities) {
         push @{$topics{lc($e->description)}}, lc($e->thing);
     }   
     
     foreach my $key (keys %topics) {
-        $doc->{$key} = join ' ', @{$topics{$key}};
+        $doc->set_value($key => join ' ', @{$topics{$key}});
+        $doc->set_value(has => $doc->get_value("has")." ".$key);
     }
-
+}
 
 
 =head1 NAME
