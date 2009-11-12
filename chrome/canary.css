@@ -122,3 +122,4 @@ a:hover {
 .entity-country:before {content: url(/chrome/globe.png); }
 .entity-phonenumber:before {content: url(/chrome/phone.png); }
 .entity-faxnumber:before {content: url(/chrome/fax.png); }
+input#searchbox { width:75% }
