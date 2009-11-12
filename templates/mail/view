@@ -20,25 +20,7 @@
 </table>
 <pre> [% mail.format_body %]
 </pre>
-            [% IF mail.physical_addresses %]
-            [% SET a = mail.physical_addresses.first; IF a.lat %]
-<p> <b> [% a.address %] </b> </p>
-<div id="map" style="width:90%; height:200px;"></div>
-<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAT9G7BFw-Cy7UY225VcufjBRi_j0U6kJrkFvY4-OX2XYmEAa76BSl5KxUbfGxdAlSY2WCrvevpPNiig"></script>
-<script type="text/javascript">
-  google.load("maps", "2.x");
-  google.setOnLoadCallback(initialize);
-  function initialize() {
-    var map = new google.maps.Map2(document.getElementById("map"));
-    map.setCenter(new google.maps.LatLng([%a.long%], [%a.lat%]),8+[%a.zoom%] );
-    var point = new GLatLng([%a.long%], [% a.lat %]);
-    map.addOverlay(new GMarker(point));
-    var mapControl = new GMapTypeControl();
-    map.addControl(mapControl);
-    map.addControl(new GLargeMapControl());
-      }
-</script>
-            [% END; END %]
+[% INCLUDE mail/map %]
 </div>
 </div>
 </div>

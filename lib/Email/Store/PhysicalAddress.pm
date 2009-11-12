@@ -69,8 +69,8 @@ sub narrow {
     my $location = $geocoder->geocode( location => $address );
     return ($address) if !$location;
     $address = $location->{address} || $address;
-    return ($address, $location->{Point}{coordinates}[0],
-     $location->{Point}{coordinates}[1], $location->{AddressDetails}{Accuracy});
+    return ($address, $location->{Point}{coordinates}[1],
+     $location->{Point}{coordinates}[0], $location->{AddressDetails}{Accuracy});
 }
 
 
