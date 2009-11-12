@@ -1,11 +1,13 @@
-Make all the links work!
+Make threading work again!
+Only kino-index things in original content (maybe needs an "original" method on the mail)
+Fix various MIME/Base32 encoding issues
 Narrow results by summary info (Sender, Folder,etc.)
 Suggest search improvements by giving ID as well as name
 "Things I need help with"
 "Organic group" finding
 Functional interface when trying to find stuff
 Recognisers (From M::M)
-    Physical address
+    Physical address (needs kinoindex)
     Keywords
     Attachment types
 Wikify everything (partially done)
