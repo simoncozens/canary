@@ -30,6 +30,7 @@ sub spec_kinosearch_fields {
     $indexer->spec_field(name => "list", analyzed => 0);
     $indexer->spec_field(name => "text", stored => 1);
     $indexer->spec_field(name => $_, stored => 1) for qw/from cc to/;
+    $indexer->spec_field(name => $_."_id", stored => 1, analyzed => 0) for qw/from cc to/;
     $indexer->spec_field(name => "id", analyzed => 0, stored => 1);
     $indexer->spec_field(name => "has", stored => 0);
 }
@@ -38,6 +39,9 @@ sub kinosearch_index {
     $doc->set_value(list => join " ", map {$_->name} $mail->lists);
     for (qw(From Cc To)) {
         $doc->set_value(lc $_ => join " ", map {$_->name->name} 
+                                       $mail->addressings(role => $_)
+        );
+        $doc->set_value(lc $_."_id" => join " ", map {$_->entity->id} 
                                        $mail->addressings(role => $_)
         );
     }
