@@ -5,6 +5,7 @@
 [% INCLUDE searchbox %]
 
 [% IF things %]
+<h4> Were you looking for...?</h4>
 <ul>
 [% FOR t=things %]<li>[%t%]</li>[%END%] 
 </ul>
