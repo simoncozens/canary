@@ -4,6 +4,11 @@
 <h1>Search results</h1>
 [% INCLUDE searchbox %]
 
+[% IF things %]
+<ul>
+[% FOR t=things %]<li>[%t%]</li>[%END%] 
+</ul>
+[% END %]
 [% message %]
 
 [% FOR mail = mails %]

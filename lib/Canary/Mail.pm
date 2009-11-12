@@ -22,9 +22,7 @@ sub search {
     my $params = $mm->{req}->parameters();
     my $p = Data::Page->new();
     my $hits = Email::Store::Mail->kinosearch_search($params->{terms});
-    if (!$hits->total_hits) {
-        return $mm->respond("mail/search");
-    }
+    if (!$hits->total_hits) { return $mm->respond("mail/search"); }
     $p->total_entries($hits->total_hits);
     $p->current_page($params->{page} || 1);
     $p->entries_per_page($params->{epp} || 10);
@@ -34,14 +32,20 @@ sub search {
     );
     $hits->create_excerpts( highlighter => $highlighter );
     my @mails;
+    my %things;
     while ( my $hashref = $hits->fetch_hit_hashref ) {
+        while ($params->{terms} =~ /has:(\w+)/g) { 
+            my $thing = $hashref->{$1};
+            $things{$thing}++ if $thing;
+        }
         my $mail = Email::Store::Mail->retrieve($hashref->{id});
         $mail->{excerpt} = $hashref->{excerpt};
         push @mails, $mail;
     }   
 
     $self->_suggest_better_terms($mm, $hits, $params->{terms});
-    $mm->respond("mail/search", pager => $p, mails => \@mails );
+    $mm->respond("mail/search", pager => $p, mails => \@mails, things =>
+    [keys %things]);
 }
 
 sub recent {
