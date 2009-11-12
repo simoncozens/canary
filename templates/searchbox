@@ -1,7 +1,7 @@
 <div class="search">
 <form action="[% base | remove( '/$' ) %]/mail/search/">
 <p>
-<input name="terms" value="[% self.req.parameters.terms %]" /> 
+<input name="terms" value="[% self.req.parameters.terms |html%]" /> 
 <input type="submit" value="Search!" />
 </p>
 </form>
