@@ -14,7 +14,7 @@ builder {
        store => HTTP::Session::Store::File->new(dir => "/tmp/canary"),
        state => HTTP::Session::State::Cookie->new(name => "canarysid", path => "/", domain => "127.0.0.1");
   Canary->app(model_prefix => "Canary", 
-              compiled_templates => "compiled_templates"
+              compiled_templates => "compiled_templates",
               templates => ["user_templates", "templates"],
               );
 };
