@@ -1,15 +1,23 @@
 package Canary;
+use strict;
+use warnings;
 use base 'MicroMaypole';
 use Canary;
 use Canary::Mail;
-use Email::Store qw/dbi:SQLite:email.db/;
+use Canary::MasterDB;
+use Authen::Passphrase;
+use Email::Store;
 
 sub authenticate {
     my $self = shift;
-    my $sess = $self->{req}{psgix.session};
-    if (!$req->{user} and !try_to_login($self)) {
+    my $sess = $self->{req}->env->{"psgix.session"};
+    if (!$sess->get("user") and !try_to_login($self)) {
         return $self->respond("login");
     }
+    # XXX Set database up, set correct name of index
+    $self->{user} = $sess->get("user");
+    Email::Store->import("dbi:SQLite:canary-".$self->{user}->id.".db");
+    $Email::Store::KinoSearch::index_path = "emailstore-index-".$self->{user}->id;
     return;
 }
 
@@ -21,20 +29,19 @@ sub try_to_login {
         push @{$self->{messages}}, "Need to give a username and a password to log in";
         return;
     }
-    my ($user);# = Canary::ProtoDB::User->search(username => $u);
+    my ($user) = Canary::MasterDB::User->search(username => $u);
     if (!$user) {
         # Don't leak more information than necessary
-        push @{$req->{messages}}, "Username or password incorrect";
+        push @{$self->{messages}}, "Username or password incorrect";
         return;
     }
     my $real = Authen::Passphrase->from_crypt($user->password);
     if ($real->match($p)) {
-        push @{$req->{messages}}, "Login successful";
-        $req->session->set("user" => $user);
-        # XXX Set database up, set correct name of index
+        push @{$self->{messages}}, "Login successful";
+        $self->{req}->env->{"psgix.session"}->set("user" => $user->id);
         return 1;
     }
-    push @{$req->{messages}}, "Username or password incorrect";
+    push @{$self->{messages}}, "Username or password incorrect";
     return 0;
 }
 
