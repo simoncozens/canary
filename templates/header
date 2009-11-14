@@ -2,7 +2,7 @@
 [% PROCESS macros %]
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="top">
-    <title>[% (title || "Buscador") | html %]</title>
+    <title>[% (title || "Canary") | html %]</title>
     <meta http-equiv="Content-Language" content="en" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="/chrome/jquery.min.js"></script>
