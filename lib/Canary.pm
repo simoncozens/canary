@@ -1,3 +1,48 @@
+package Canary;
+use base 'MicroMaypole';
+use Canary;
+use Canary::Mail;
+use Email::Store qw/dbi:SQLite:email.db/;
+
+sub authenticate {
+    my $self = shift;
+    my $sess = $self->{req}{psgix.session};
+    if (!$req->{user} and !try_to_login($self)) {
+        return $self->respond("login");
+    }
+    return;
+}
+
+sub try_to_login {
+    my $self = shift;
+    my $params = $self->{req}->parameters;
+    my ($p, $u);
+    unless($u = $params->{username} and $p = $params->{password}) {
+        push @{$self->{messages}}, "Need to give a username and a password to log in";
+        return;
+    }
+    my ($user);# = Canary::ProtoDB::User->search(username => $u);
+    if (!$user) {
+        # Don't leak more information than necessary
+        push @{$req->{messages}}, "Username or password incorrect";
+        return;
+    }
+    my $real = Authen::Passphrase->from_crypt($user->password);
+    if ($real->match($p)) {
+        push @{$req->{messages}}, "Login successful";
+        $req->session->set("user" => $user);
+        # XXX Set database up, set correct name of index
+        return 1;
+    }
+    push @{$req->{messages}}, "Username or password incorrect";
+    return 0;
+}
+
+sub interesting {
+    return Email::Store::CaptainsLog->search_recent(10);
+
+}
+
 package Canary::Base;
 use strict;
 use Data::Page;

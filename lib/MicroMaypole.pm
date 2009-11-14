@@ -24,6 +24,8 @@ sub app {
 
 sub new { my $self = shift; return bless {@_} , $self }
 
+sub authenticate {}
+
 sub do404 { 
     my $res = shift->respond("404handler");
     $res->status(404);  
@@ -33,6 +35,7 @@ sub do404 {
 sub handler {
     my ($self, $req) = @_;
     $self->{req} = $req;
+    if ($resp = $self->authenticate()) { return $resp }
     my (undef, $noun, $verb, @args) = split /\//,  $req->path;
     if (!$noun) { $noun = "mail"; $verb = "recent" } # XXX shouldn't be here
     $self->{req}{noun} = $noun;
