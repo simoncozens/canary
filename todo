@@ -1,23 +1,33 @@
-Make threading work again!
+MILESTONE 1 - PRIVATE ALPHA
+
+Finish rebranding
 Only kino-index things in original content (maybe needs an "original" method on the mail)
+Make threading work again!
 Fix various MIME/Base32 encoding issues
-Narrow results by summary info (Sender, Folder,etc.)
-Suggest search improvements by giving ID as well as name
-"Things I need help with"
-"Organic group" finding
-Functional interface when trying to find stuff
-Recognisers (From M::M)
-    Physical address (needs kinoindex)
-    Keywords
-    Attachment types
-Wikify everything (partially done)
 Sticky notes
-Votes - interface to
-Gumshoe - report on people's URLs, keywords, addresses etc.
+Wikify everything (partially done)
 Entity correlators:
     *BUG* Something is wrong with the correlator we already have
         may be fixed by...
     Equate Calias "named entities" and E::S "entities"
+
+MILESTONE 2 - PRIVATE BETA
+
+Suggest search improvements by giving ID as well as name
+Narrow results by summary info (Sender, Folder,etc.)
+"Organic group" finding
+Recognisers (From M::M)
+    Physical address (needs kinoindex)
+    Keywords
+    Attachment types
+Functional interface when trying to find stuff
+
+MILESTONE 3 - PUBLIC BETA
+
+Gumshoe - report on people's URLs, keywords, addresses etc.
+"Things I need help with"
+Votes - interface to
+Entity correlators:
     Exact
     Similar domain name 
     Is a reply from another address
