@@ -5,13 +5,14 @@ use warnings;
 our $VERSION = '0.02';
 use KinoSearch::Analysis::PolyAnalyzer;
 use KinoSearch::InvIndexer;
-our $index_path ||= "./emailstore-index";
+our $index_path;
 use Module::Pluggable::Ordered search_path => ["Email::Store"];
 
 sub on_store_order { 99 }
 sub on_store {
     my ($self, $mail) = @_;
     my $analyzer = KinoSearch::Analysis::PolyAnalyzer->new( language => 'en' ); 
+    if (!$index_path) { die "Environment not set? BUG!" }
     my $indexer = KinoSearch::InvIndexer->new(
         invindex => $index_path, 
         create => (!-d $index_path),

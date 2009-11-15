@@ -15,9 +15,8 @@ sub authenticate {
         return $self->respond("login");
     }
     # XXX Set database up, set correct name of index
-    $self->{user} = $sess->get("user");
-    Email::Store->import("dbi:SQLite:canary-".$self->{user}->id.".db");
-    $Email::Store::KinoSearch::index_path = "emailstore-index-".$self->{user}->id;
+    $self->{user} = Canary::MasterDB::User->retrieve($sess->get("user"));
+    $self->{user}->setup_environment();
     return;
 }
 
@@ -26,7 +25,7 @@ sub try_to_login {
     my $params = $self->{req}->parameters;
     my ($p, $u);
     unless($u = $params->{username} and $p = $params->{password}) {
-        push @{$self->{messages}}, "Need to give a username and a password to log in";
+        #push @{$self->{messages}}, "Need to give a username and a password to log in";
         return;
     }
     my ($user) = Canary::MasterDB::User->search(username => $u);
@@ -47,7 +46,6 @@ sub try_to_login {
 
 sub interesting {
     return Email::Store::CaptainsLog->search_recent(10);
-
 }
 
 package Canary::Base;
