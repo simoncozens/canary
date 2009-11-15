@@ -9,7 +9,7 @@ use Plack::Builder;
 
 builder {
   enable "Plack::Middleware::Static",
-       path => qr{^/chrome/}, root => './';
+       path => qr{^/(user-)?chrome/}, root => './';
   enable "Plack::Middleware::HTTPSession",
        store => HTTP::Session::Store::File->new(dir => "/tmp/canary"),
        state => HTTP::Session::State::Cookie->new(name => "canarysid", path => "/", domain => "127.0.0.1");
