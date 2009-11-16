@@ -2,7 +2,7 @@
 [% PROCESS macros %]
 <h1> [%entity.thing%] </h1>
 
-<h2>Cited in</h2>
+<h2>Mentioned in</h2>
 <ul>
 [% FOR i = entity.mails; "<li>";summary_link(i); END %]
 </ul>
