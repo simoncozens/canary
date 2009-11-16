@@ -46,7 +46,7 @@ sub kinosearch_index {
                                        $mail->addressings(role => $_)
         );
     }
-    $doc->set_value(text => $mail->simple->body);
+    $doc->set_value(text => $mail->body);
     $doc->set_value(id => $mail->message_id);
 }
 
