@@ -21,7 +21,7 @@ sub extract_entities {
         }
     }
     return if $markup =~ /<Error/;
-    my $stuff = from_json($markup);
+    my $stuff = eval { from_json($markup) } || {};
     my @entities;
     for (grep { $_->{_typeGroup} eq 'entities' } values %$stuff) {
         push @entities, {
