@@ -14,9 +14,9 @@ sub body {
         eval {
             require Encode;
             $body = Encode::decode($charset, $body);
-            Encode::_utf8_off($body);
         };
     }
+    Encode::_utf8_on($body);
     $body;
 }
 
