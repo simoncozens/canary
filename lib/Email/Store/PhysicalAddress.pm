@@ -28,7 +28,7 @@ sub on_store_order { 80 }
 
 sub on_store {
     my ($self, $mail) = @_;
-    my @lines = split /\n/, $mail->simple->body;
+    my @lines = split /\n/, $mail->body;
     my @found;
     my $last =0;
 
