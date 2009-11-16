@@ -6,7 +6,7 @@ use Canary;
 use Canary::Mail;
 use Canary::MasterDB;
 use Authen::Passphrase;
-use Email::Store;
+use Email::Store 'dbi:SQLite:canary-proto.db';
 
 sub authenticate {
     my $self = shift;
