@@ -1,9 +1,9 @@
 MILESTONE 1 - PRIVATE ALPHA
 
 Finish rebranding
-Only kino-index things in original content (maybe needs an "original" method on the mail)
+Only kino-index things in original content ("summary" needs to provide
+    first_sentence and *all* significant signal.)
 Make threading work again!
-Fix various MIME/Base32 encoding issues
 Sticky notes
 Wikify everything (partially done)
 Entity correlators:
