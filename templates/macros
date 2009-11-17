@@ -33,7 +33,7 @@ class="entity-[%i.description%]">[%i.thing%]</span></a>
 [% END; %]
 
 [% MACRO summary_link(mail) BLOCK; %]
-    <a href="[% base | remove('/$') %]/mail/view/[% mail.id | uri | html %]">[% mail.subject | html %]</a> 
+    <a href="[% base | remove('/$') %]/mail/view/[% mail.id | uri | html %]">[% mail.subject || "[No subject]" | html %]</a> 
     - <a href="[% base | remove('/$') %]/entity/view/[% from_entity(mail) %]" class="secondarylink">[% from_name(mail) %]</a>
 [% END %]
 
