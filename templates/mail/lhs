@@ -1,0 +1,18 @@
+[% PROCESS macros %]
+[% INCLUDE mail/map %]
+&nbsp;
+
+[% SET u = mail.urls; IF u; %] 
+<h2> URLs</h2>
+<ul>
+[%FOR i = u; IF i.title %]<li><a href="[%i.url |html%]">[%i.title%]</a></li>[% END;END %]
+</ul>
+[% END %]
+
+[% SET u = mail.named_entities(); IF u; %] 
+<h2> Essentials</h2>
+<ul>
+[%FOR i = u;%]<li>[% entity_link(i) %]</li>[% END %]
+</ul>
+[% END %]
+

@@ -12,14 +12,14 @@
 <div class="column span-6 interesting">
     <a href="/"><p class="logo"><img src="/chrome/canary.png" id="logo"/>Canary</p></a>
     [% IF self.user %]
-    <h2> Interesting things </h2>
-    <ul>
-    [% FOR i = self.interesting; %]
-    <li> [% i.text; %] in mail [% summary_link(i.mail) %] </li>
-    [% END %]
-    </ul>
-    [% END %]
-
+    [% IF mail; INCLUDE mail/lhs; ELSE; %]
+        <h2> Interesting things </h2>
+        <ul>
+        [% FOR i = self.interesting; %]
+        <li> [% i.text; %] in mail [% summary_link(i.mail) %] </li>
+        [% END %]
+        </ul>
+    [% END; END %]
 </div>
 <div class="column span-18">
 <div class="content">

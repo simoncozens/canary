@@ -6,6 +6,10 @@
 <a href="[% base | remove( '/$' ) %]/address/view/[% addr.id %]">[% addr.address %]</a>
 [% END; %]
 
+[% MACRO entity_link(i) BLOCK; %]
+<span class="entity-[%i.description%]">[%i.thing%]</span>
+[% END %]
+
 [% MACRO make_atom(url) BLOCK; %]
     <div class="atom"><a href="[% base | remove('/$') %]/[% url | remove ('^/') %]"><img src="[% config.img_base | replace('/$')%]/atompixel.png" style="border: 0;" width="80" height="15" alt="atom feed" /></a></div>
 [% END %]
