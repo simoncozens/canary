@@ -1,3 +1,9 @@
+Maildir
+user-chrome
+user_templates
+canary-*.db
+emailstore-index-*
+*.cng
 META.yml
 compiled_templates
 email.db
