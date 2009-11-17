@@ -18,7 +18,7 @@ sub on_store_order { 80 }
 
 sub on_store {
     my ($self, $mail) = @_;
-    my $simple = $mail->simple->body;
+    my $simple = $mail->body;
     URI::Find::Schemeless::Stricter->new(sub {
         Email::Store::URL->create({
             mail => $mail->id,
