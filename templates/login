@@ -1,0 +1,11 @@
+[% INCLUDE header %]
+<h2> You need to log in </h2>
+
+[% FOR m = self.messages; m; END %]
+
+<form method="post" id="loginform">
+    <p>Username: <input name="username"></p>
+    <p>Password: <input name="password" type="password"></p>
+    <p><input type="submit" name="Login"></p>
+</form>
+[% INCLUDE footer %]
