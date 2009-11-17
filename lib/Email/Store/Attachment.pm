@@ -94,7 +94,7 @@ __DATA__
 CREATE TABLE IF NOT EXISTS attachment (
     id           integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
     mail         varchar(255),
-    payload      text,
+    payload      blob,
     filename     varchar(255),
     content_type varchar(255)
 );

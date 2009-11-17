@@ -71,6 +71,23 @@ sub view {
     $mm->respond("", $self->moniker => $thing);
 }
 
+package Canary::Attachment;
+use base 'Canary::Base';
+
+sub view {
+    my ($self, $mm, @args) = @_;
+    my $thing = $self->underlying_class->retrieve($args[0]);
+    if (!$thing) { return $mm->do404() }
+    warn "RETURNING REAL ATTACHMENT\n";
+    my $res =Plack::Response->new();
+    $res->status(200);
+    $res->content_type($thing->content_type);
+    $res->body($thing->payload);
+    return $res;
+}
+
+package Canary::List;
+use base 'Canary::Base';
 package Canary::Entity;
 use base 'Canary::Base';
 package Canary::NamedEntity;
