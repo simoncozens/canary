@@ -12,7 +12,40 @@
 [% SET u = mail.named_entities(); IF u; %] 
 <h2> Essentials</h2>
 <ul>
-[%FOR i = u;%]<li>[% entity_link(i) %]</li>[% END %]
+[%FOR i = u;%]<li>[% entity_link(i) %]<span id="removeEntity[%i.id%]" class="removeEntity">x</span></li>[% END %]
 </ul>
+
+<div id="dialog" title="Delete this entity?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to delete the entity <b><span id="removeEntityName"></span></b>?</p>
+</div>
+<script>
+    $("#dialog").dialog({
+        autoOpen: false,
+        bgiframe: true,
+        resizable: false,
+        modal: true,
+        width: 500,
+        overlay: { backgroundColor: '#000', opacity: 0.5 },
+        buttons: {
+            Cancel: function() {
+                $(this).dialog('close');
+            },
+            'Delete from this mail': function() {
+                document.location = "/mail/view/[%mail.id|uri%]/delete_neref/"+idToRemove;
+            },
+            'Delete from all mails': function() {
+                document.location = "/mail/view/[%mail.id|uri%]/delete_ne/"+idToRemove;
+            }
+        }
+    });
+var idToRemove;
+$(".removeEntity").click(function(){ 
+    idToRemove = this.id.replace(/removeEntity/,"");
+    var name = (this.parentNode.children)[0].textContent;
+    $("#removeEntityName").text(name);
+    $("#dialog").dialog("open");
+
+});
+</script>
 [% END %]
 

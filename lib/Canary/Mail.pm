@@ -5,6 +5,17 @@ use Data::Page;
 sub view {
     my ($self, $mm, @args) = @_;
     my $mail = Email::Store::Mail->retrieve($args[0]);
+    if (defined $args[1] and $args[1] eq "delete_ne") {
+        my $ne = Email::Store::NamedEntity->retrieve($args[2]);
+        if ($ne) { $ne->delete } # Cascading delete takes care of NERefs
+    } elsif (defined $args[1] and $args[1] eq "delete_neref") {
+        my (@refs) = Email::Store::NERef->search(
+            entity => $args[2],
+            mail => $args[0]
+        );
+        $_->delete for @refs;
+    }
+
     $mm->respond("mail/view", mail => $mail);
 }
 
