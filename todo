@@ -1,8 +1,10 @@
 MILESTONE 1 - PRIVATE ALPHA
 
 Finish rebranding
+Creating new accounts and importing mail(!!!)
 Only kino-index things in original content ("summary" needs to provide
     first_sentence and *all* significant signal.)
+Knobs on entities - create, split, etc.
 Make threading work again!
 Sticky notes
 Wikify everything (partially done)
@@ -16,6 +18,7 @@ MILESTONE 2 - PRIVATE BETA
 Suggest search improvements by giving ID as well as name
 Narrow results by summary info (Sender, Folder,etc.)
 "Organic group" finding
+LSI content as well
 Recognisers (From M::M)
     Physical address (needs kinoindex)
     Keywords
