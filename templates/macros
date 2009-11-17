@@ -7,7 +7,8 @@
 [% END; %]
 
 [% MACRO entity_link(i) BLOCK; %]
-<span class="entity-[%i.description%]">[%i.thing%]</span>
+<a href="/named_entity/view/[%i.id%]"><span
+class="entity-[%i.description%]">[%i.thing%]</span></a>
 [% END %]
 
 [% MACRO make_atom(url) BLOCK; %]
