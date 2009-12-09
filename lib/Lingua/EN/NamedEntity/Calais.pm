@@ -15,7 +15,7 @@ sub extract_entities {
     outputFormat=>"Application/JSON");
         alarm 0;
         };
-        if ($markup =~ /<Error/ and $attempts++ < 10) { 
+        if ($markup =~ /<Error/ and $attempts++ > 10) { 
         return;
         sleep 5; warn "Failed, retrying"; redo 
         }
